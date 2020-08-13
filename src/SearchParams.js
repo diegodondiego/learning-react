@@ -1,14 +1,56 @@
-import React from "react";
+import React, { useState } from "react";
+import { ANIMALS } from "@frontendmasters/pet";
 
 const SearchParams = () => {
-  const location = "San Francisco, CA";
+  const [location, setLocation] = useState("San Francisco, CA");
+  const [animal, setAnimal] = useState("dog");
+  const [breed, setBreed] = useState("");
+  const [breeds, setBreeds] = useState([]);
 
   return (
     <div className="search-params">
       <form>
         <label htmlFor="location">
           Location
-          <input id="location" value={location} placeholder="Location" />
+          <input
+            id="location"
+            value={location}
+            placeholder="Location"
+            onChange={(e) => setLocation(e.target.value)}
+          />
+        </label>
+        <label htmlFor="animal">
+          Animal
+          <select
+            id="animal"
+            value={animal}
+            onChange={(e) => setAnimal(e.target.value)}
+            onBlur={(e) => setAnimal(e.target.value)}
+          >
+            <option>All</option>
+            {ANIMALS.map((animalTemp) => (
+              <option key={animalTemp} value={animalTemp}>
+                {animalTemp}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label htmlFor="breed">
+          Breed
+          <select
+            id="breed"
+            value={breed}
+            onChange={(e) => setBreed(e.target.value)}
+            onBlur={(e) => setBreed(e.target.value)}
+            disabled={breeds.length === 0}
+          >
+            <option>All</option>
+            {breeds.map((breedTemp) => (
+              <option key={breedTemp} value={breedTemp}>
+                {breedTemp}
+              </option>
+            ))}
+          </select>
         </label>
         <button>Submit</button>
       </form>
